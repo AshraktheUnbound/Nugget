@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
-      <change afterPath="$PROJECT_DIR$/tiles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2dmapscroll.py" beforeDir="false" afterPath="$PROJECT_DIR$/2dmapscroll.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_teepee.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/tiles/bg_teepee.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Bob Boberson &lt;blackrebel@mail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -33,14 +38,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "inlay.hints"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+  </component>
   <component name="RunManager" selected="Python.2dmapscroll">
     <configuration name="2dmapscroll" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Nugget" />
@@ -49,8 +49,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\danie\PycharmProjects\GeneralProjects\venv\Scripts\python.exe" />
-      <option name="SDK_NAME" value="Python 3.9 (GeneralProjects)" />
+      <option name="SDK_HOME" value="C:\mud\Nugget\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -107,7 +106,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681879578783</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Some Cleanup">
+      <created>1681919038398</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681919038398</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Some Cleanup">
+      <created>1681919076619</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681919076619</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,6 +133,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Some Cleanup" />

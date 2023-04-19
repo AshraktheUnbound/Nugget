@@ -4,9 +4,20 @@ def load_tiles():
     tiles = {}
 
     for tile_name, tile_key in tile_map.items():
-        #image_filename = f"resources/tiles/{tile_name}"
         tiles[tile_key] = pygame.image.load('resources/tiles/' + tile_name + '.png')
     return tiles
+
+def load_textfile(afile):
+    with open(afile, 'r') as f:
+        rows = f.readlines()
+        for x in range(len(rows) - 1, -1, -1):
+            if rows[x][0] == "\n" or rows[x][0] == "#":
+                rows.pop(x)
+    list = []
+    for x in range(len(rows)):
+        list.append(rows[x])
+        list[-1] = list[-1].rstrip("\n")
+    return list
 
 tile_map = {'bg_water':'w',
              'bg_grass':'g',

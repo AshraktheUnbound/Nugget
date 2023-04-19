@@ -11,13 +11,13 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load PNG images and store them in a dictionary based on map key
 images = {}
-images['g'] = pygame.image.load("bg_grass.bmp")
-images['t'] = pygame.image.load("bg_tree.bmp")
-images['w'] = pygame.image.load("bg_water.bmp")
-images['s'] = pygame.image.load("bg_sand.bmp")
-images['p'] = pygame.image.load("bg_pavement.bmp")
-images['h'] = pygame.image.load("bg_house.bmp")
-images['r'] = pygame.image.load("bg_grock.bmp")
+images['g'] = pygame.image.load("resources/tiles/bg_grass.bmp")
+images['t'] = pygame.image.load("resources/tiles/bg_tree.bmp")
+images['w'] = pygame.image.load("resources/tiles/bg_water.bmp")
+images['s'] = pygame.image.load("resources/tiles/bg_sand.bmp")
+images['p'] = pygame.image.load("resources/tiles/bg_pavement.bmp")
+images['h'] = pygame.image.load("resources/tiles/bg_house.bmp")
+images['r'] = pygame.image.load("resources/tiles/bg_grock.bmp")
 # ... add more images and keys as needed
 
 # Define the map using a 2D list of keys

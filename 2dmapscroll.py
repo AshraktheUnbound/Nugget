@@ -1,5 +1,5 @@
 import pygame
-
+from tiles import load_tiles
 
 # initialize pygame Set screen dimensions and Create screen surface
 pygame.init()
@@ -7,31 +7,7 @@ screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-# Load PNG images and store them in a dictionary based on map key
-images = {}
-images['g'] = pygame.image.load("resources/tiles/bg_grass.png")
-images['t'] = pygame.image.load("resources/tiles/bg_tree.png")
-images['w'] = pygame.image.load("resources/tiles/bg_water.png")
-images['s'] = pygame.image.load("resources/tiles/bg_sand.png")
-images['p'] = pygame.image.load("resources/tiles/bg_pavement.png")
-images['h'] = pygame.image.load("resources/tiles/bg_house.png")
-images['e'] = pygame.image.load("resources/tiles/bg_teepee.png")
-images['r'] = pygame.image.load("resources/tiles/bg_grock.png")
-
-images['0'] = pygame.image.load("resources/tiles/bg_road_lr.png")
-images['1'] = pygame.image.load("resources/tiles/bg_road_ud.png")
-images['2'] = pygame.image.load("resources/tiles/bg_road_dr.png")
-images['3'] = pygame.image.load("resources/tiles/bg_road_dl.png")
-images['4'] = pygame.image.load("resources/tiles/bg_road_lu.png")
-images['5'] = pygame.image.load("resources/tiles/bg_road_ur.png")
-
-images['6'] = pygame.image.load("resources/tiles/bg_troad_u.png")
-images['7'] = pygame.image.load("resources/tiles/bg_troad_d.png")
-images['8'] = pygame.image.load("resources/tiles/bg_troad_l.png")
-images['9'] = pygame.image.load("resources/tiles/bg_troad_r.png")
-
-images['x'] = pygame.image.load("resources/tiles/bg_xroad.png")
-# ... add more images and keys as needed
+images = load_tiles()
 
 # Define the map using a 2D list of keys
 map_key = [
@@ -65,8 +41,6 @@ map_key = [
     ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
     ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
     ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
-
-
 ]
 
 # Calculate dimensions of background map

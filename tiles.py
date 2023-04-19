@@ -19,6 +19,27 @@ def load_textfile(afile):
         list[-1] = list[-1].rstrip("\n")
     return list
 
+def split_line(line):
+    return [char for char in line]
+
+def split_lines(list):
+    new_list = []
+    for line in list:
+        new_list.append(split_line(line))
+    return new_list
+
+def join_characters(chars):
+    return ''.join(chars)
+
+def save_map(map, file_name):
+    new_text = []
+    for line in map:
+        new_text.append(join_characters(line))
+
+    with open("resources/" + file_name, 'w', encoding="utf-8") as f:
+        for line in new_text:
+            f.write(line + "\n")
+
 tile_map = {'bg_water':'w',
              'bg_grass':'g',
              'bg_sand':'s',

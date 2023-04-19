@@ -4,14 +4,6 @@
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dmapscroll.py" beforeDir="false" afterPath="$PROJECT_DIR$/2dmapscroll.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_grass.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_grass_b.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_grock.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_house.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_pavement.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_sand.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_tree.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/tiles/bg_water.bmp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -11,33 +11,41 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load PNG images and store them in a dictionary based on map key
 images = {}
-images['g'] = pygame.image.load("resources/tiles/bg_grass.bmp")
-images['t'] = pygame.image.load("resources/tiles/bg_tree.bmp")
-images['w'] = pygame.image.load("resources/tiles/bg_water.bmp")
-images['s'] = pygame.image.load("resources/tiles/bg_sand.bmp")
-images['p'] = pygame.image.load("resources/tiles/bg_pavement.bmp")
-images['h'] = pygame.image.load("resources/tiles/bg_house.bmp")
-images['r'] = pygame.image.load("resources/tiles/bg_grock.bmp")
+images['g'] = pygame.image.load("resources/tiles/bg_grass.png")
+images['t'] = pygame.image.load("resources/tiles/bg_tree.png")
+images['w'] = pygame.image.load("resources/tiles/bg_water.png")
+images['s'] = pygame.image.load("resources/tiles/bg_sand.png")
+images['p'] = pygame.image.load("resources/tiles/bg_pavement.png")
+images['h'] = pygame.image.load("resources/tiles/bg_house.png")
+images['r'] = pygame.image.load("resources/tiles/bg_grock.png")
+
+images['0'] = pygame.image.load("resources/tiles/bg_road_lr.png")
+images['1'] = pygame.image.load("resources/tiles/bg_road_ud.png")
+images['2'] = pygame.image.load("resources/tiles/bg_road_dr.png")
+images['3'] = pygame.image.load("resources/tiles/bg_road_dl.png")
+images['4'] = pygame.image.load("resources/tiles/bg_road_lu.png")
+images['5'] = pygame.image.load("resources/tiles/bg_road_ur.png")
+
 # ... add more images and keys as needed
 
 # Define the map using a 2D list of keys
 map_key = [
-    ['g', 'g', 'p', 't', 't', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w'],
-    ['g', 'g', 'p', 't', 't', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w'],
-    ['g', 'g', 'p', 'p', 'g', 'g', 'g', 's', 'w', 'w', 'w', 's', 'w'],
-    ['g', 't', 't', 'p', 'g', 'g', 's', 's', 'w', 'w', 'w', 's', 'w'],
-    ['g', 't', 't', 'p', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w', 'w'],
-    ['r', 'r', 'g', 'p', 'g', 's', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
-    ['r', 'r', 'g', 'p', 'g', 's', 's', 's', 'w', 'w', 'w', 'w', 'w'],
-    ['g', 'h', 'p', 'p', 'g', 'r', 'g', 't', 's', 'w', 'w', 'w', 'w'],
-    ['t', 'g', 't', 'p', 'g', 't', 'g', 'g', 's', 's', 'w', 'w', 'w'],
-    ['g', 'g', 'g', 'p', 'g', 't', 'g', 'g', 'g', 's', 's', 'w', 'w'],
-    ['g', 'g', 'g', 'p', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 's', 's'],
-    ['g', 't', 'g', 'p', 'r', 'g', 'g', 't', 'g', 'g', 'g', 'g', 'g'],
-    ['g', 'g', 'g', 'p', 'g', 't', 'g', 'g', 'g', 'g', 'g', 'g', 'g'],
-    ['p', 'p', 'p', 'p', 'g', 'g', 'g', 'g', 's', 's', 'g', 'g', 'g'],
-    ['t', 'g', 'g', 'p', 't', 'g', 'g', 'g', 's', 's', 'g', 'r', 'g'],
-    ['g', 'g', 'g', 'p', 'g', 'g', 'g', 's', 's', 's', 'g', 'g', 'g'],
+    ['g', 'g', '1', 't', 't', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w'],
+    ['g', 'g', '1', 't', 't', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w'],
+    ['g', 'g', '5', '3', 'g', 'g', 'g', 's', 'w', 'w', 'w', 's', 'w'],
+    ['g', 't', 't', '1', 'g', 'g', 's', 's', 'w', 'w', 'w', 's', 'w'],
+    ['g', 't', 't', '1', 'g', 'g', 's', 'w', 'w', 'w', 'w', 'w', 'w'],
+    ['r', 'r', 'g', '1', 'g', 's', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
+    ['r', 'r', 'g', '1', 'g', 's', 's', 's', 'w', 'w', 'w', 'w', 'w'],
+    ['g', 'h', 'p', '1', 'g', 'r', 'g', 't', 's', 'w', 'w', 'w', 'w'],
+    ['t', 'g', 't', '1', 'g', 't', 'g', 'g', 's', 's', 'w', 'w', 'w'],
+    ['g', 'g', 'g', '1', 'g', 't', 'g', 'g', 'g', 's', 's', 'w', 'w'],
+    ['g', 'g', 'g', '1', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 's', 's'],
+    ['g', 't', 'g', '1', 'r', 'g', 'g', 't', 'g', 'g', 'g', 'g', 'g'],
+    ['g', 'g', 'g', '1', 'g', 't', 'g', 'g', 'g', 'g', 'g', 'g', 'g'],
+    ['p', 'p', 'p', '1', 'g', 'g', 'g', 'g', 's', 's', 'g', 'g', 'g'],
+    ['t', 'g', 'g', '1', 't', 'g', 'g', 'g', 's', 's', 'g', 'r', 'g'],
+    ['g', 'g', 'g', '1', 'g', 'g', 'g', 's', 's', 's', 'g', 'g', 'g'],
     ['g', 't', 'g', 'p', 'p', 'p', 'r', 's', 's', 's', 'g', 'g', 'w'],
     ['g', 'r', 'g', 'p', 't', 'p', 's', 's', 's', 's', 's', 'g', 'w'],
     ['g', 'g', 'g', 'p', 'p', 'p', 's', 's', 's', 's', 's', 'g', 'g'],

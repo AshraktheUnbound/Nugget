@@ -32,13 +32,10 @@ def join_characters(chars):
     return ''.join(chars)
 
 def save_map(map, file_name):
-    new_text = []
-    for line in map:
-        new_text.append(join_characters(line))
-
     with open("resources/" + file_name, 'w', encoding="utf-8") as f:
-        for line in new_text:
+        for line in map:
             f.write(line + "\n")
+key_list = 'wgsther0123456789x'
 
 tile_map = {'bg_water':'w',
              'bg_grass':'g',

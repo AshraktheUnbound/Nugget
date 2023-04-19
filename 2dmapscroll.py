@@ -1,5 +1,7 @@
 import pygame
-from tiles import load_tiles, load_textfile, split_lines, join_characters
+from tiles import load_tiles, load_textfile, split_lines, save_map
+
+key_list = 'wgsther0123456789x'
 
 class cls_settings:
     def __init__(self):
@@ -21,6 +23,7 @@ screen = pygame.display.set_mode((settings.screen_width, settings.screen_height)
 images = load_tiles()
 map = 'resources/map.txt'
 map_key = split_lines(load_textfile(map))
+map_txt = load_textfile(map)
 
 # Calculate dimensions of background map (Map width and length in tiles*64)
 # Create background map surface
@@ -32,7 +35,6 @@ for y in range(len(map_key)):
     for x in range(len(map_key[y])):
         background_map.blit(images[map_key[y][x]], (x * settings.tile_size, y * settings.tile_size))
 
-# Define scroll offset and scrolling speed
 # Blit background map onto screen surface
 # Update display
 screen.blit(background_map, (settings.scroll_offset_x, settings.scroll_offset_y))
@@ -42,16 +44,22 @@ pygame.display.update()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            save_map(map_txt, 'map.txt')
             pygame.quit()
             exit()
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            for row in range(len(map_key)):
-                for col in range(len(map_key[row])):
-                    tile_rect = pygame.Rect(col * 64, row * 64, 64, 64)
-                    if tile_rect.collidepoint(pos):
-                        print(f"Clicked on tile at ({col}, {row})")
+            if pygame.mouse.get_pressed()[0]:  # left mouse button
+                pos = pygame.mouse.get_pos()
+                for row in range(len(map_key)):
+                    for col in range(len(map_key[row])):
+                        tile_rect = pygame.Rect(col * 64, row * 64, 64, 64)
+                        if tile_rect.collidepoint(pos):
+                            for x in range(0,len(key_list)):
+                                if key_list[x] == map_txt[row][col]:
+                                    print(key_list[x], ",", key_list[x-1])
+                                    map_txt[row] = map_txt[row][:col] + key_list[x - 1] + map_txt[row][col + 1:]
+
 
         # Handle arrow key events
         elif event.type == pygame.KEYDOWN:
@@ -77,4 +85,12 @@ while True:
             screen.blit(background_map, (settings.scroll_offset_x, settings.scroll_offset_y))
 
             # Update display
+
+    map_key = split_lines(map_txt)
+    for y in range(len(map_key)):
+        for x in range(len(map_key[y])):
+            background_map.blit(images[map_key[y][x]], (x * settings.tile_size, y * settings.tile_size))
+    screen.blit(background_map, (settings.scroll_offset_x, settings.scroll_offset_y))
     pygame.display.update()
+
+

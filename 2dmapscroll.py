@@ -17,6 +17,7 @@ settings = cls_settings()
 # initialize pygame Set screen dimensions and Create screen surface
 pygame.init()
 screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
+clock = pygame.time.Clock()
 
 # tiles.py
 # Loads tile images for background and then defines the map using a 2d list of keys
@@ -56,9 +57,12 @@ while True:
                         tile_rect = pygame.Rect(col * 64, row * 64, 64, 64)
                         if tile_rect.collidepoint(pos):
                             for x in range(0,len(key_list)):
-                                if key_list[x] == map_txt[row][col]:
+                                if key_list[x] == map_txt[row+abs(int(settings.scroll_offset_x/64))][col+abs(int(settings.scroll_offset_y/64))]:
+                                    print(row,col)
                                     print(key_list[x], ",", key_list[x-1])
-                                    map_txt[row] = map_txt[row][:col] + key_list[x - 1] + map_txt[row][col + 1:]
+                                    print('Offset X:{}, Offset Y:{} X: {}'.format(settings.scroll_offset_x, settings.scroll_offset_y,x))
+                                    print(row+abs(int(settings.scroll_offset_x/64)),col+abs(int(settings.scroll_offset_y/64)))
+                                    map_txt[row+abs(int(settings.scroll_offset_y/64))] = map_txt[row+abs(int(settings.scroll_offset_y/64))][:col] + key_list[x - 1] + map_txt[row+abs(int(settings.scroll_offset_y/64))][col + 1:]
 
 
         # Handle arrow key events
@@ -91,6 +95,7 @@ while True:
         for x in range(len(map_key[y])):
             background_map.blit(images[map_key[y][x]], (x * settings.tile_size, y * settings.tile_size))
     screen.blit(background_map, (settings.scroll_offset_x, settings.scroll_offset_y))
+    clock.tick(60)
     pygame.display.update()
 
 

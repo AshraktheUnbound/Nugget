@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dmapscroll.py" beforeDir="false" afterPath="$PROJECT_DIR$/2dmapscroll.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/map.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681936956899</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some Cleanup">
+      <created>1681945423444</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681945423444</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

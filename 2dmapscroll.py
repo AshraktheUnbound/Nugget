@@ -55,13 +55,18 @@ while True:
                     for col in range(len(map_key[row])):
                         tile_rect = pygame.Rect(col * 64, row * 64, 64, 64)
                         if tile_rect.collidepoint(pos):
-                            for x in range(0,len(key_list)):
-                                if key_list[x] == map_txt[row+abs(int(settings.scroll_offset_x/64))][col+abs(int(settings.scroll_offset_y/64))]:
-                                    print(row,col)
-                                    print(key_list[x], ",", key_list[x-1])
-                                    print('Offset X:{}, Offset Y:{} X: {}'.format(settings.scroll_offset_x, settings.scroll_offset_y,x))
-                                    print(row+abs(int(settings.scroll_offset_x/64)),col+abs(int(settings.scroll_offset_y/64)))
-                                    map_txt[row+abs(int(settings.scroll_offset_y/64))] = map_txt[row+abs(int(settings.scroll_offset_y/64))][:col] + key_list[x - 1] + map_txt[row+abs(int(settings.scroll_offset_y/64))][col + 1:]
+                            for key_type in range(0,len(key_list)):
+
+                                num_a = abs(int(settings.scroll_offset_x/64))
+                                num_b = abs(int(settings.scroll_offset_y/64))
+
+                                if key_list[key_type] == map_txt[row + num_a][col+num_b]:
+                                    print('###################################################################')
+                                    print('Row: {}, Column: {}, Tyle Was: {}, Tile is: {}, '.format(row, col, key_list[key_type], key_list[key_type-1]))
+                                    print('Offset X:{}, Offset Y:{} Tyle Key Type: {}'.format(settings.scroll_offset_x, settings.scroll_offset_y,key_type))
+                                    print('Row + num_a: {}, Col + num_b: {}'.format(row + num_a,col + num_b))
+
+                                    map_txt[row+num_b] = map_txt[row+num_b][:col] + key_list[key_type - 1] + map_txt[row+num_b][col + 1:]
 
 
         # Handle arrow key events

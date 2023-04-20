@@ -8,7 +8,6 @@ class cls_settings:
         self.screen_width = 800
         self.screen_height = 600
         self.tile_size = 64
-
         self.scroll_offset_x = 0
         self.scroll_offset_y = 0
         self.scroll_speed = 64

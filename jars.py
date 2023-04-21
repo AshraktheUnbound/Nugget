@@ -1,5 +1,5 @@
-import glob, os
-path = r"C:\Users\Bob Boberson\downloads\nameless\basic\\"
+import glob, os, pygame, random
+path = r"C:\Users\Bob Boberson\downloads\nameless\basic\test1\\"
 
 def get_results():
     pattern = path + "*.jpg"
@@ -21,84 +21,85 @@ def cleanse():
 def contest():
     screen_width = 800
     screen_height = 600
-    row = 1
-    col = 1
+
 
     pygame.init()
     screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Round Robin Contest")
+    font = pygame.font.Font(None, 36)
+    clock = pygame.time.Clock()
+
+    #tiles = pygame.image.load('resources/tiles/' + tile_name + '.png')
 
 
-    tiles = pygame.image.load('resources/tiles/' + tile_name + '.png')
 
-    for row in range(len(map_key)):
-        for col in range(len(map_key[row])):
+    # Load the images
+    images = []
 
-#cleanse()
-import pygame
-import random
+    total = len(get_results())
 
-# Initialize Pygame
-pygame.init()
+    for x in range(1, total + 1):
+        image = pygame.image.load(path + f"{x}.jpg")
+        image = pygame.transform.scale(image, (256, 256))
+        images.append(image)
 
-# Set up the window
-WIDTH = 800
-HEIGHT = 600
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Round Robin Contest")
 
-# Load the images
-images = []
-for i in range(1, 81):
-    image = pygame.image.load(f"{i}.jpg")
-    images.append(image)
 
-# Create a dictionary to keep track of votes
-votes = {}
-for i in range(1, 81):
-    votes[i] = 0
+    votes = []
+    for row in range(len(images)):
+        new_row = []
+        for col in range(len(images)):
+            new_row.append(0)
+        votes.append(new_row)
 
-# Set up the font
-font = pygame.font.Font(None, 36)
+    contestant_a = 0
+    contestant_b = 1
 
-# Set up the clock
-clock = pygame.time.Clock()
+    # Main game loop
+    running = True
+    while running:
+        # Display the images
 
-# Main game loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            # Get the position of the mouse click
-            pos = pygame.mouse.get_pos()
-            # Check which image was clicked on
-            if pos[0] < WIDTH // 2:
-                # Left image was clicked
-                votes[current_images[0]] += 1
-            else:
-                # Right image was clicked
-                votes[current_images[1]] += 1
+        if contestant_b < total:
+            screen.blit(images[contestant_a], (0, 0))
+            screen.blit(images[contestant_b], (screen_width // 2, 0))
+        else:
+            running=False
+        # Update the display
+        pygame.display.flip()
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # Get the position of the mouse click
+                pos = pygame.mouse.get_pos()
+                # Check which image was clicked on
+                if pos[0] < screen_width // 2:
+                    # Left image was clicked
+                    votes[contestant_a][contestant_b] += 1
+                else:
+                    # Right image was clicked
+                    votes[contestant_b][contestant_a] += 1
 
-    # Choose two random images
-    current_images = random.sample(range(1, 81), 2)
+                contestant_b += 1
 
-    # Display the images
-    SCREEN.blit(images[current_images[0] - 1], (0, 0))
-    SCREEN.blit(images[current_images[1] - 1], (WIDTH // 2, 0))
+                if contestant_b > total - 1:
+                    contestant_a += 1
+                    contestant_b = contestant_a + 1
 
-    # Display the vote count
-    vote_text = font.render(f"Votes: {sum(votes.values())}", True, (255, 255, 255))
-    SCREEN.blit(vote_text, (10, 10))
+        # Tick the clock
+        clock.tick(60)
 
-    # Update the display
-    pygame.display.flip()
+    # Print the final results
+    print("Results:")
+    count = 0
+    for row in votes:
+        sum = 0
+        count += 1
+        for number in row:
+            sum += number
+        print(f'Row #: {count},Total: {sum} ')
 
-    # Tick the clock
-    clock.tick(60)
-
-# Print the final results
-print("Results:")
-for i in range(1, 81):
-    print(f"{i}: {votes[i]} votes")
+cleanse()
+contest()

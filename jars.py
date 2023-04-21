@@ -1,5 +1,5 @@
 import glob, os, pygame, random
-path = r"C:\Users\Bob Boberson\downloads\nameless\basic\test1\\"
+PATH = r"C:\Users\Bob Boberson\downloads\nameless\basic\Old Hall\\"
 
 def get_results():
     pattern = path + "*.jpg"
@@ -19,32 +19,12 @@ def cleanse():
     print('File Cleansing is complete'.format())
 
 def contest():
-    screen_width = 800
-    screen_height = 600
 
+    screen = pygame_init('Contest', 800, 600)
+    images = load_images(PATH)
 
-    pygame.init()
-    screen = pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption("Round Robin Contest")
-    font = pygame.font.Font(None, 36)
-    clock = pygame.time.Clock()
-
-    #tiles = pygame.image.load('resources/tiles/' + tile_name + '.png')
-
-
-
-    # Load the images
-    images = []
-
-    total = len(get_results())
-
-    for x in range(1, total + 1):
-        image = pygame.image.load(path + f"{x}.jpg")
-        image = pygame.transform.scale(image, (256, 256))
-        images.append(image)
-
-
-
+    # Building the Vote Array for Round Robin Contest
+    # Then Setting the first 2 contestants.
     votes = []
     for row in range(len(images)):
         new_row = []
@@ -59,14 +39,15 @@ def contest():
     running = True
     while running:
         # Display the images
-
         if contestant_b < total:
             screen.blit(images[contestant_a], (0, 0))
             screen.blit(images[contestant_b], (screen_width // 2, 0))
         else:
             running=False
+
         # Update the display
         pygame.display.flip()
+
         # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -101,5 +82,41 @@ def contest():
             sum += number
         print(f'Row #: {count},Total: {sum} ')
 
-cleanse()
-contest()
+def load_images(a_path):
+    images = []
+
+    total = len(get_results())
+
+    for x in range(1, total + 1):
+        image = pygame.image.load(a_path + f"{x}.jpg")
+        image = pygame.transform.scale(image, (256, 256))
+        images.append(image)
+
+    return images
+
+def yes_no():
+    cleanse()
+
+    images = load_images()
+
+def pygame_init(caption, width, height):
+    pygame.init()
+    screen = pygame.display.set_mode((width, height))
+    pygame.display.set_caption(caption)
+
+    self.font = pygame.font.Font(None, 36)
+    self.clock = pygame.time.Clock()
+    return screen
+
+'''
+class cls_pygame_screen(caption, width, height):
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((width, height))
+        pygame.display.set_caption(caption)
+
+        self.font = pygame.font.Font(None, 36)
+        self.clock = pygame.time.Clock()
+'''
+
+

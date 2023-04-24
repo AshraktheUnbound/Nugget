@@ -1,130 +1,15 @@
 import pygame, time
 from random import randint as rand
 from enemies import cls_enemy, cls_super_enemy
-
-def load_image(file_name, size):
-        image = pygame.image.load(file_name).convert()
-        transparent_color = (255, 255, 255)
-        image.set_colorkey(transparent_color)
-        image = pygame.transform.scale(image, (size[0], size[1]))
-        return image
-
-class cls_bullet:
-    def __init__(self, x, y, direction):
-        self.image = bullet_image
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.speed = .05
-        self.direction = direction
-
-    def update(self):
-        pass
-
-class cls_weapon:
-    def __init__(self, x, y, capacity):
-        self.image = weapon_image
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.bullets = []
-        self.fire_sound = pygame.mixer.Sound("fire_sound.wav")
-        self.capacity = capacity
-        self.ammo_count = capacity
-        self.ammo_total = self.capacity * 3
+from player import cls_player
+from weapons import cls_weapon, cls_bullet
+from images import load_image
 
 
-    def update(self, player_rect):
-        self.rect.centerx = player_rect.centerx
-        self.rect.bottom = player_rect.top+48
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
-    def shoot(self, direction):
-        if self.ammo_count == 0:
-            self.reload()
-        else:
-            bullet = cls_bullet(self.rect.centerx, self.rect.top, direction)
-            self.bullets.append(bullet)
-            self.fire_sound.play()
-            self.ammo_count -= 1
-
-    def reload(self):
-        if self.capacity < self.ammo_total:
-            self.ammo_count = self.capacity
-            self.ammo_total -= self.capacity
-        else:
-            self.ammo_count = self.ammo_total
-            self.ammo_total = 0
-
-class cls_player:
-    def __init__(self, x, y):
-        self.image = player_image
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.vel_y = 0
-        self.jump_power = TILE_SIZE / 4
-        self.is_jumping = False
-        self.weapon = cls_weapon(self.rect.centerx, self.rect.top, 15)
-        self.weapon_facing_right = True
-        self.player_facing_right = True
-        self.kills = 0
-        self.hit_points = 3
-
-    def update(self):
-        # handle player movement
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and not self.is_jumping:
-            self.is_jumping = True
-            self.vel_y = -self.jump_power
-        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.rect.x -= 5
-            if self.weapon_facing_right == True:
-                self.weapon.image = pygame.transform.flip(self.weapon.image, True, False)
-                self.image = pygame.transform.flip(self.image, True, False)
-                self.weapon_facing_right = not self.weapon_facing_right
-                self.player_facing_right = not self.player_facing_right
-        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.rect.x += 5
-            if self.weapon_facing_right == False:
-                self.weapon.image = pygame.transform.flip(self.weapon.image, True, False)
-                self.image = pygame.transform.flip(self.image, True, False)
-                self.weapon_facing_right = not self.weapon_facing_right
-                self.player_facing_right = not self.player_facing_right
-        if keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.rect.y -= 5
-        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            self.rect.y += 5
-
-        # handle player jumping
-        if self.is_jumping:
-            self.rect.y += self.vel_y
-            self.vel_y += 1
-            if self.rect.bottom >= WINDOW_HEIGHT:
-                self.rect.bottom = WINDOW_HEIGHT
-                self.is_jumping = False
-
-        # check for collisions
-        for enemy in enemies:
-            if self.rect.colliderect(enemy):
-                if self.vel_y > 0:
-                    self.rect.bottom = enemy.top
-                    self.is_jumping = False
-                    self.vel_y = 0
-                elif self.vel_y < 0:
-                    self.rect.top = enemy.bottom
-                    self.vel_y = 0
-        self.weapon.update(self.rect)
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-        self.weapon.draw(surface)
 
 class cls_flower:
-    def __init__(self, x, y):
-        self.image = flower_image
+    def __init__(self, x, y, image):
+        self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -139,23 +24,26 @@ TILE_SIZE = 64
 menu_font = pygame.font.Font(None, 36)
 
 pygame.mixer.music.load('7000RPM.mp3')
+pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play()
 
-bullet_image = load_image('bullet.png', (16,16))
 weapon_image = load_image('weapon.png', (48,24))
 player_image = load_image('char.jpg', (64,64))
 player_image = pygame.transform.flip(player_image, True, False)
 enemy_image = load_image('enemy.png', (48,48))
 flower_image = load_image('flower.jpg', (40,40))
+grass_image = load_image('grass.png', (16,16))
 big_enemy_image = load_image('enemy_2.png', (100,100))
 
-player = cls_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
+player = cls_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, player_image)
+weapon = cls_weapon(player.rect.centerx, player.rect.top, 15, weapon_image)
+player.weapon = weapon
 
 enemies = []
 
 def generate_enemy(class_used, image):
-    x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-    y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+    x = rand(0, WINDOW_WIDTH - 64)
+    y = rand(0, WINDOW_HEIGHT - 64)
     enemy = class_used(image, x, y)
     return enemy
 
@@ -171,8 +59,13 @@ flowers = []
 for x in range(10):
     flower_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
     flower_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-    flower = cls_flower(flower_x, flower_y)
+    flower = cls_flower(flower_x, flower_y, flower_image)
     flowers.append(flower)
+for x in range(250):
+    grass_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+    grass_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+    grass = cls_flower(grass_x, grass_y, grass_image)
+    flowers.append(grass)
 
 
 clock = pygame.time.Clock()
@@ -192,13 +85,13 @@ while running:
 
     # draw game world
     game_window.fill((0, 0, 0))
-    player.update()
+    player.update(enemies)
 
     for flower in flowers:
         game_window.blit(flower.image, flower.rect)
 
     for enemy in enemies:
-        enemy.update(player)
+        enemy.update(player, enemies)
         game_window.blit(enemy.image, enemy.rect)
 
         if player.rect.colliderect(enemy):

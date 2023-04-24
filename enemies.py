@@ -14,7 +14,7 @@ class cls_enemy:
         self.set_target()
         self.speed = 1.5
 
-    def update(self, player):
+    def update(self, player, enemies):
         if self.rect.x > self.target_x:
             self.rect.x -= self.speed
         else:
@@ -39,7 +39,7 @@ class cls_super_enemy(cls_enemy):
         self.timer = 0
         self.child = []
 
-    def action(self):
+    def action(self, enemies):
         self.timer += 1
         if self.timer == 300:
             self.timer = 0
@@ -49,9 +49,9 @@ class cls_super_enemy(cls_enemy):
             enemy = cls_enemy(self.child, enemy_x, enemy_y)
             enemies.append(enemy)
 
-    def update(self, player):
-        super().update(player)
-        self.action()
+    def update(self, player, enemies):
+        super().update(player, enemies)
+        self.action(enemies)
 
 def load_enemies():
     pass

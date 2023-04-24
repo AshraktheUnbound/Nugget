@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
+      <change afterPath="$PROJECT_DIR$/enemies.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_topdownrpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_topdownrpg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_delete.py" beforeDir="false" afterPath="$PROJECT_DIR$/util_image_delete.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jars.py" beforeDir="false" afterPath="$PROJECT_DIR$/jars.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pygame menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pygame tutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_dots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/side scroller.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_side_scroller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text_to_speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_text_to_speech.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +29,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -32,12 +40,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/2dmapscroll.py" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bob Boberson\PycharmProjects\Nugget" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.ai_topdownrpg">
     <configuration name="2dmapscroll" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -61,21 +71,21 @@
       <method v="2" />
     </configuration>
     <configuration name="ai_topdownrpg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="nugget" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\mud\Nugget\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai_topdownrpg.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="EMULATE_TERMINAL" value="true" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
@@ -110,7 +120,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\danie\PycharmProjects\GeneralProjects\venv\Scripts\python.exe" />
-      <option name="SDK_NAME" value="Python 3.9 (GeneralProjects)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -298,6 +307,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Some Cleanup" />

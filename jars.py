@@ -125,4 +125,11 @@ for x in range(count,0,-1):
     total+=count
 print(total)
 
+def checkit(num):
+    total = 0
+    for x in range(num,0,-1):
+        total += x
+    print(total/60/60*52)
+
+checkit(20)
 

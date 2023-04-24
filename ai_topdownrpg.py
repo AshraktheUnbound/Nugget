@@ -31,7 +31,7 @@ mouse_down = False
 
 running = True
 while running:
-    # handle events
+    # INPUTS - HANDLE EVENTS
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -43,41 +43,35 @@ while running:
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:  # left mouse button
                 mouse_down = False
-
     if mouse_down:
         mouse_pos = pygame.mouse.get_pos()
         direction = (mouse_pos[0] - player.rect.centerx, mouse_pos[1] - player.rect.centery)
         player.weapon.shoot(direction)
 
-
-    # draw game world
-    game_window.fill((0, 0, 0))
+    #Movement Logic
     player.update(enemies)
-
-    for flower in flowers:
-        game_window.blit(flower.image, flower.rect)
-
     for enemy in enemies:
         enemy.update(player, enemies)
-        game_window.blit(enemy.image, enemy.rect)
+    for bullet in player.weapon.bullets:
+        bullet.rect.x += bullet.speed * bullet.direction[0]
+        bullet.rect.y += bullet.speed * bullet.direction[1]
 
-        if player.rect.colliderect(enemy):
-            print('Collision!')
-            player.hit_points += -1
+    # Collision Logic
+    if player.rect.colliderect(enemy):
+        print('Collision!')
+        player.hit_points += -1
 
-            enemy.death_sound.play()
-            enemies.remove(enemy)
-            player.kills += 1
+        enemy.death_sound.play()
+        enemies.remove(enemy)
+        player.kills += 1
 
-            enemy_x = rand(0, WINDOW_WIDTH - 64)
-            enemy_y = rand(0, WINDOW_HEIGHT - 64)
-            enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
-            enemies.append(enemy)
+        enemy_x = rand(0, WINDOW_WIDTH - 64)
+        enemy_y = rand(0, WINDOW_HEIGHT - 64)
+        enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
+        enemies.append(enemy)
 
-            if player.hit_points < 1:
-                running = False
-
-        for bullet in player.weapon.bullets:
+    for bullet in player.weapon.bullets:
+        for enemy in enemies:
             if bullet.rect.colliderect(enemy):
                 player.weapon.bullets.remove(bullet)
                 #enemy.death_sound.play()
@@ -90,15 +84,19 @@ while running:
                     enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
                     enemies.append(enemy)
 
+    # DRAW THE FRAME AFTER ALL LOGIC
+    game_window.fill((0, 0, 0))
+
+    for flower in flowers:
+        game_window.blit(flower.image, flower.rect)
+    for enemy in enemies:
+        game_window.blit(enemy.image, enemy.rect)
+    player.draw(game_window)
     for bullet in player.weapon.bullets:
-        bullet.rect.x += bullet.speed * bullet.direction[0]
-        bullet.rect.y += bullet.speed * bullet.direction[1]
         if bullet.rect.left > WINDOW_WIDTH or bullet.rect.right < 0 or bullet.rect.top > WINDOW_HEIGHT or bullet.rect.bottom < 0:
             player.weapon.bullets.remove(bullet)
         else:
             game_window.blit(bullet.image, bullet.rect)
-
-    player.draw(game_window)
 
     item_text = menu_font.render(f'KILLS: {player.kills} - HITPOITS: {player.hit_points} - AMMO:({player.weapon.ammo_count}/{player.weapon.ammo_total})', True, (255,255,255))
     item_rect = item_text.get_rect()
@@ -107,7 +105,7 @@ while running:
 
     # set frame rate
     clock.tick(60)
-    if len(enemies) == 0:
+    if len(enemies) == 0 or player.hit_points < 1:
         running = False
 
 # quit game

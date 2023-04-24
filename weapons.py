@@ -27,9 +27,10 @@ class cls_weapon:
 
         self.capacity = capacity
         self.ammo_count = capacity
-        self.ammo_total = self.capacity * 3
+        self.ammo_total = self.capacity * 2
         self.fire_rate = 250
         self.time_last_fired = 0
+        self.reload_timer = 2000
         self.mode = 'Single_Shot'
         self.bullet_image = bullet_image
 
@@ -74,4 +75,5 @@ class cls_weapon:
             self.ammo_count = self.ammo_total
             self.ammo_total = 0
 
+        self.time_reloaded = time.time() * 1000
         self.reload_sound.play()

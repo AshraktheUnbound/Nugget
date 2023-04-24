@@ -18,10 +18,9 @@ elif window_mode == 2:
 pygame.display.set_caption('Nugget')
 clock = pygame.time.Clock()
 menu_font = pygame.font.Font(None, 72)
-
+load_music()
 #TILE_SIZE = 64
 
-load_music()
 images = load_images()
 player = load_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,images)
 enemies = load_enemies(images, WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -57,18 +56,19 @@ while running:
         bullet.rect.y += bullet.speed * bullet.direction[1]
 
     # Collision Logic
-    if player.rect.colliderect(enemy):
-        print('Collision!')
-        player.hit_points += -1
+    for enemy in enemies:
+        if player.rect.colliderect(enemy):
+            print('Collision!')
+            player.hit_points += -1
 
-        enemy.death_sound.play()
-        enemies.remove(enemy)
-        player.kills += 1
+            enemy.death_sound.play()
+            enemies.remove(enemy)
+            player.kills += 1
 
-        enemy_x = rand(0, WINDOW_WIDTH - 64)
-        enemy_y = rand(0, WINDOW_HEIGHT - 64)
-        enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
-        enemies.append(enemy)
+            enemy_x = rand(0, WINDOW_WIDTH - 64)
+            enemy_y = rand(0, WINDOW_HEIGHT - 64)
+            enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
+            enemies.append(enemy)
 
     for bullet in player.weapon.bullets:
         for enemy in enemies:
@@ -103,12 +103,13 @@ while running:
     game_window.blit(item_text, item_rect)
     pygame.display.update()
 
-    # set frame rate
+    # Frame Rate
     clock.tick(60)
+
+    # End Game Conditions - DEAD or NO ENEMIES
     if len(enemies) == 0 or player.hit_points < 1:
         running = False
 
-# quit game
 pygame.quit()
 print('Thank you for playing.')
 

@@ -31,10 +31,10 @@ def generate_enemy(class_used, image,WINDOW_WIDTH, WINDOW_HEIGHT):
 def load_enemies(images,WINDOW_WIDTH, WINDOW_HEIGHT):
     enemies = []
 
-    for x in range(2):
+    for x in range(8):
         enemies.append(generate_enemy(cls_enemy, images.enemy_image,WINDOW_WIDTH, WINDOW_HEIGHT))
 
-    for x in range(1):
+    for x in range(3):
         enemy = generate_enemy(cls_super_enemy, images.big_enemy_image,WINDOW_WIDTH, WINDOW_HEIGHT)
         enemy.child = images.enemy_image
         enemies.append(enemy)
@@ -73,3 +73,19 @@ class cls_flower:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+        '''
+        image = pygame.image.load('pyramid.png')
+        image = pygame.transform.scale(image, (WINDOW_WIDTH, WINDOW_HEIGHT))
+        alpha = 0
+        running = True
+        while running:
+            alpha += .5
+            if alpha > 255:
+                alpha = 255
+            image.set_alpha(alpha)
+            game_window.blit(image, (0, 0))
+            pygame.display.update()
+            clock.tick(60)
+            if alpha == 255:
+                running = False'''

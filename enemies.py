@@ -29,6 +29,18 @@ class cls_enemy:
             self.target_x = player.rect.x
             self.target_y = player.rect.y
 
+        # Check for collisions with other enemies and adjust position
+        for enemy in enemies:
+            if enemy != self and self.rect.colliderect(enemy.rect):
+                if self.rect.centerx < enemy.rect.centerx:
+                    self.rect.x -= self.speed
+                else:
+                    self.rect.x += self.speed
+                if self.rect.centery < enemy.rect.centery:
+                    self.rect.y -= self.speed
+                else:
+                    self.rect.y += self.speed
+
     def set_target(self):
         self.target_x = self.rect.x + rand(-100,100)
         self.target_y = self.rect.y + rand(-100,100)
@@ -41,11 +53,11 @@ class cls_super_enemy(cls_enemy):
 
     def action(self, enemies):
         self.timer += 1
-        if self.timer == 300:
+        if self.timer == 100:
             self.timer = 0
 
-            enemy_x = self.rect.x + rand(-32,32)
-            enemy_y = self.rect.y + rand(-32,32)
+            enemy_x = self.rect.x + rand(-128,128)
+            enemy_y = self.rect.y + rand(-128,128)
             enemy = cls_enemy(self.child, enemy_x, enemy_y)
             enemies.append(enemy)
 

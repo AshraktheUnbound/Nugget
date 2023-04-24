@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
-      <change afterPath="$PROJECT_DIR$/load_assets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_topdownrpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_topdownrpg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/weapons.py" beforeDir="false" afterPath="$PROJECT_DIR$/weapons.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -307,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682357134570</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Some Cleanup">
+      <created>1682362544370</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682362544370</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

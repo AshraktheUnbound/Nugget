@@ -27,6 +27,7 @@ player = load_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,images)
 enemies = load_enemies(images, WINDOW_WIDTH, WINDOW_HEIGHT)
 flowers = load_flowers(images, WINDOW_WIDTH, WINDOW_HEIGHT)
 
+mouse_down = False
 
 running = True
 while running:
@@ -35,12 +36,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
             if pygame.mouse.get_pressed()[0]:  # left mouse button
-                direction = (mouse_pos[0] - player.rect.centerx, mouse_pos[1] - player.rect.centery)
-                player.weapon.shoot(direction)
-            elif pygame.mouse.get_pressed()[2]:  # left mouse button
+                mouse_down = True
+            elif pygame.mouse.get_pressed()[2]:  # right mouse button
                 player.weapon.reload()
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:  # left mouse button
+                mouse_down = False
+
+    if mouse_down:
+        mouse_pos = pygame.mouse.get_pos()
+        direction = (mouse_pos[0] - player.rect.centerx, mouse_pos[1] - player.rect.centery)
+        player.weapon.shoot(direction)
+
 
     # draw game world
     game_window.fill((0, 0, 0))

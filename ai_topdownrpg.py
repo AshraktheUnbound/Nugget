@@ -1,74 +1,33 @@
 import pygame, time
 from random import randint as rand
-from enemies import cls_enemy, cls_super_enemy
-from player import cls_player
-from weapons import cls_weapon, cls_bullet
-from images import load_image
+from enemies import cls_enemy
+from load_assets import load_music, load_images, load_player, load_enemies
+from load_assets import load_flowers
 
-
-
-class cls_flower:
-    def __init__(self, x, y, image):
-        self.image = image
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-
-# initialize pygame
+window_modes = {'Windowed':1, 'Full Screen':2}
+window_mode = 2
 pygame.init()
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
-game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+if window_mode == 1:
+    WINDOW_WIDTH = 800
+    WINDOW_HEIGHT = 600
+    game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+elif window_mode == 2:
+    WINDOW_WIDTH = pygame.display.Info().current_w
+    WINDOW_HEIGHT = pygame.display.Info().current_h
+    game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption('Nugget')
-TILE_SIZE = 64
-menu_font = pygame.font.Font(None, 36)
-
-pygame.mixer.music.load('7000RPM.mp3')
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play()
-
-weapon_image = load_image('weapon.png', (48,24))
-player_image = load_image('char.jpg', (64,64))
-player_image = pygame.transform.flip(player_image, True, False)
-enemy_image = load_image('enemy.png', (48,48))
-flower_image = load_image('flower.jpg', (40,40))
-grass_image = load_image('grass.png', (16,16))
-big_enemy_image = load_image('enemy_2.png', (100,100))
-
-player = cls_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, player_image)
-weapon = cls_weapon(player.rect.centerx, player.rect.top, 15, weapon_image)
-player.weapon = weapon
-
-enemies = []
-
-def generate_enemy(class_used, image):
-    x = rand(0, WINDOW_WIDTH - 64)
-    y = rand(0, WINDOW_HEIGHT - 64)
-    enemy = class_used(image, x, y)
-    return enemy
-
-for x in range(2):
-    enemies.append(generate_enemy(cls_enemy, enemy_image))
-
-for x in range(1):
-    enemy = generate_enemy(cls_super_enemy, big_enemy_image)
-    enemy.child = enemy_image
-    enemies.append(enemy)
-
-flowers = []
-for x in range(10):
-    flower_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-    flower_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-    flower = cls_flower(flower_x, flower_y, flower_image)
-    flowers.append(flower)
-for x in range(250):
-    grass_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-    grass_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-    grass = cls_flower(grass_x, grass_y, grass_image)
-    flowers.append(grass)
-
-
 clock = pygame.time.Clock()
+menu_font = pygame.font.Font(None, 72)
+
+#TILE_SIZE = 64
+
+load_music()
+images = load_images()
+player = load_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,images)
+enemies = load_enemies(images, WINDOW_WIDTH, WINDOW_HEIGHT)
+flowers = load_flowers(images, WINDOW_WIDTH, WINDOW_HEIGHT)
+
+
 running = True
 while running:
     # handle events
@@ -102,9 +61,9 @@ while running:
             enemies.remove(enemy)
             player.kills += 1
 
-            enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-            enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-            enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
+            enemy_x = rand(0, WINDOW_WIDTH - 64)
+            enemy_y = rand(0, WINDOW_HEIGHT - 64)
+            enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
             enemies.append(enemy)
 
             if player.hit_points < 1:
@@ -118,9 +77,9 @@ while running:
                 player.kills += 1
 
                 if rand(1,2) > 1:
-                    enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-                    enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-                    enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
+                    enemy_x = rand(0, WINDOW_WIDTH - 64)
+                    enemy_y = rand(0, WINDOW_HEIGHT - 64)
+                    enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
                     enemies.append(enemy)
 
     for bullet in player.weapon.bullets:
@@ -136,12 +95,14 @@ while running:
     item_text = menu_font.render(f'KILLS: {player.kills} - HITPOITS: {player.hit_points} - AMMO:({player.weapon.ammo_count}/{player.weapon.ammo_total})', True, (255,255,255))
     item_rect = item_text.get_rect()
     game_window.blit(item_text, item_rect)
-    # update game window
     pygame.display.update()
 
     # set frame rate
     clock.tick(60)
+    if len(enemies) == 0:
+        running = False
 
 # quit game
 pygame.quit()
+print('Thank you for playing.')
 

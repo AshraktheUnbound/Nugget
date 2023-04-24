@@ -1,9 +1,8 @@
 import pygame
-from images import load_image
 
 class cls_bullet:
-    def __init__(self, x, y, direction):
-        bullet_image = load_image('bullet.png', (16, 16))
+    def __init__(self, x, y, direction, image):
+        bullet_image = image
         self.image = bullet_image
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -15,7 +14,7 @@ class cls_bullet:
         pass
 
 class cls_weapon:
-    def __init__(self, x, y, capacity, image):
+    def __init__(self, x, y, capacity, image, bullet_image):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -27,7 +26,8 @@ class cls_weapon:
         self.capacity = capacity
         self.ammo_count = capacity
         self.ammo_total = self.capacity * 3
-        self.mode = 'Buck_Shot'
+        self.mode = 'Single_Shot'
+        self.bullet_image = bullet_image
 
 
     def update(self, player_rect):
@@ -43,7 +43,7 @@ class cls_weapon:
             self.reload()
         else:
             if self.mode == modes[1]:
-                bullet = cls_bullet(self.rect.centerx, self.rect.top, direction)
+                bullet = cls_bullet(self.rect.centerx, self.rect.top, direction, self.bullet_image)
                 self.bullets.append(bullet)
             elif self.mode == modes[2]:
                 num_bullets = 5  # Change the number of bullets as per your requirement
@@ -52,7 +52,7 @@ class cls_weapon:
                     bullet_direction = list(direction)
                     bullet_direction[0] += (i - num_bullets // 2) * angle
                     bullet_direction = tuple(bullet_direction)
-                    bullet = cls_bullet(self.rect.centerx, self.rect.top, bullet_direction)
+                    bullet = cls_bullet(self.rect.centerx, self.rect.top, bullet_direction, self.bullet_image)
                     self.bullets.append(bullet)
             self.fire_sound.play()
             self.ammo_count -= 1

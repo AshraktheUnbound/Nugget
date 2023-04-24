@@ -1,7 +1,12 @@
-import pygame, random, time
+import pygame, time
+from random import randint as rand
 
-def load_images():
-    pass
+def load_image(file_name, size):
+        image = pygame.image.load(file_name).convert()
+        transparent_color = (255, 255, 255)
+        image.set_colorkey(transparent_color)
+        image = pygame.transform.scale(image, (size[0], size[1]))
+        return image
 
 class cls_bullet:
     def __init__(self, x, y, direction):
@@ -98,16 +103,67 @@ class cls_player:
         self.weapon.draw(surface)
 
 class cls_enemy:
-    def __init__(self, x, y):
-        self.image = enemy_image
+    def __init__(self, image, x, y):
+        self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.death_sound = pygame.mixer.Sound("death_sound.mp3")
 
+        self.target_x = 0
+        self.target_y = 0
+        self.set_target()
+        self.speed = 1.5
+
     def update(self):
-        self.rect.x += random.randint(-2, 2)
-        self.rect.y += random.randint(-2, 2)
+        if self.rect.x > self.target_x:
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
+        if self.rect.y > self.target_y:
+            self.rect.y -= self.speed
+        else:
+            self.rect.y += self.speed
+
+        if (abs(self.rect.x - self.target_x) <= 5) and (abs(self.rect.y - self.target_y) <= 5):
+            self.set_target()
+            self.target_x = player.rect.x
+            self.target_y = player.rect.y
+
+    def set_target(self):
+        self.target_x = self.rect.x + rand(-100,100)
+        self.target_y = self.rect.y + rand(-100,100)
+
+class cls_super_enemy(cls_enemy):
+    def __init__(self, image, x, y):
+        super().__init__(image, x, y)
+        self.timer = 0
+
+    def action(self):
+        self.timer += 1
+        if self.timer == 300:
+            self.timer = 0
+
+            enemy_x = self.rect.x + rand(-32,32)
+            enemy_y = self.rect.y + rand(-32,32)
+            enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
+            enemies.append(enemy)
+
+    def update(self):
+        super().update()
+        self.action()
+
+class cls_enemy_generator(enemy, image):
+    def __init__(self):
+        self.enemy = enemy
+        self.image = image
+
+    def clone(self):
+        clone_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+        clone_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+        clone = self.enemy(self.image, clone_x, clone_y)
+        return(clone)
+
 
 class cls_flower:
     def __init__(self, x, y):
@@ -121,48 +177,45 @@ pygame.init()
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption('Top-Down RPG')
+pygame.display.set_caption('Nugget')
 TILE_SIZE = 64
 menu_font = pygame.font.Font(None, 36)
 
-pygame.mixer.music.load('7000RPMdddddddd.mp3')
+pygame.mixer.music.load('7000RPM.mp3')
 pygame.mixer.music.play()
 
-bullet_image = pygame.image.load('bullet.png').convert()
-transparent_color = (255, 255, 255)
-bullet_image.set_colorkey(transparent_color)
-bullet_image = pygame.transform.scale(bullet_image, (16,16))
-
-weapon_image = pygame.image.load('weapon.png').convert()
-transparent_color = (255, 255, 255)
-weapon_image.set_colorkey(transparent_color)
-weapon_image = pygame.transform.scale(weapon_image, (48,24))
-
-player_image = pygame.image.load('char.jpg')
-player_image = pygame.transform.scale(player_image, (64, 64))
+bullet_image = load_image('bullet.png', (16,16))
+weapon_image = load_image('weapon.png', (48,24))
+player_image = load_image('char.jpg', (64,64))
 player_image = pygame.transform.flip(player_image, True, False)
-
-enemy_image = pygame.image.load('enemy.jpg').convert()
-enemy_image.set_colorkey(transparent_color)
-enemy_image = pygame.transform.scale(enemy_image, (48,48))
-
-flower_image = pygame.image.load('flower.jpg').convert()
-transparent_color = (255, 255, 255)
-flower_image.set_colorkey(transparent_color)
-flower_image = pygame.transform.scale(flower_image, (40,40))
+enemy_image = load_image('enemy.png', (48,48))
+flower_image = load_image('flower.jpg', (40,40))
+big_enemy_image = load_image('enemy_2.png', (100,100))
 
 player = cls_player(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
+
 enemies = []
+monstergen = cls_enemy_generator(cls_enemy, enemy_image)
 for x in range(5):
-    enemy_x = random.randint(0, WINDOW_WIDTH - TILE_SIZE)
-    enemy_y = random.randint(0, WINDOW_HEIGHT - TILE_SIZE)
-    enemy = cls_enemy(enemy_x, enemy_y)
+    enemies.append(monstergen.clone())
+
+
+    '''
+    enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+    enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+    enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
+    enemies.append(enemy)'''
+
+for x in range(2):
+    enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+    enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+    enemy = cls_super_enemy(big_enemy_image, enemy_x, enemy_y)
     enemies.append(enemy)
 
 flowers = []
 for x in range(10):
-    flower_x = random.randint(0, WINDOW_WIDTH - TILE_SIZE)
-    flower_y = random.randint(0, WINDOW_HEIGHT - TILE_SIZE)
+    flower_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+    flower_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
     flower = cls_flower(flower_x, flower_y)
     flowers.append(flower)
 
@@ -199,25 +252,24 @@ while running:
             enemies.remove(enemy)
             player.kills += 1
 
-            enemy_x = random.randint(0, WINDOW_WIDTH - TILE_SIZE)
-            enemy_y = random.randint(0, WINDOW_HEIGHT - TILE_SIZE)
-            enemy = cls_enemy(enemy_x, enemy_y)
+            enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+            enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+            enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
             enemies.append(enemy)
 
             if player.hit_points < 1:
                 running = False
-
 
         for bullet in player.weapon.bullets:
             if bullet.rect.colliderect(enemy):
                 player.weapon.bullets.remove(bullet)
                 enemy.death_sound.play()
                 enemies.remove(enemy)
-                player.kills+=1
+                player.kills += 1
 
-                enemy_x = random.randint(0, WINDOW_WIDTH - TILE_SIZE)
-                enemy_y = random.randint(0, WINDOW_HEIGHT - TILE_SIZE)
-                enemy = cls_enemy(enemy_x, enemy_y)
+                enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+                enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+                enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
                 enemies.append(enemy)
 
     for bullet in player.weapon.bullets:

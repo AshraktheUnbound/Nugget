@@ -73,8 +73,8 @@ while running:
     for bullet in player.weapon.bullets:
         for enemy in enemies:
             if bullet.rect.colliderect(enemy):
+                enemy.die()
                 player.weapon.bullets.remove(bullet)
-                #enemy.death_sound.play()
                 enemies.remove(enemy)
                 player.kills += 1
 

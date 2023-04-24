@@ -14,6 +14,8 @@ class cls_enemy:
         self.set_target()
         self.speed = 1.5
 
+        self.loot = []
+
     def update(self, player, enemies):
         if self.rect.x > self.target_x:
             self.rect.x -= self.speed
@@ -44,6 +46,9 @@ class cls_enemy:
     def set_target(self):
         self.target_x = self.rect.x + rand(-100,100)
         self.target_y = self.rect.y + rand(-100,100)
+
+    def die(self):
+        return self.loot()
 
 class cls_super_enemy(cls_enemy):
     def __init__(self, image, x, y):

@@ -26,6 +26,8 @@ def generate_enemy(class_used, image,WINDOW_WIDTH, WINDOW_HEIGHT):
     x = rand(0, WINDOW_WIDTH - 64)
     y = rand(0, WINDOW_HEIGHT - 64)
     enemy = class_used(image, x, y)
+    enemy.loot = cls_ammo
+    enemy.loot_image = []
     return enemy
 
 def load_enemies(images,WINDOW_WIDTH, WINDOW_HEIGHT):
@@ -66,6 +68,7 @@ class load_images():
         self.flower_image = load_image('flower.jpg', (40, 40))
         self.grass_image = load_image('grass.png', (16, 16))
         self.big_enemy_image = load_image('enemy_2.png', (100, 100))
+        self.ammo_image = load_image('ammo.png', (64, 32))
 
 class cls_flower:
     def __init__(self, x, y, image):
@@ -89,3 +92,14 @@ class cls_flower:
             clock.tick(60)
             if alpha == 255:
                 running = False'''
+
+class cls_ammo:
+    def __init__(self, x, y, image):
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def gitty_get(self, player):
+        player.weapon.ammo_total += player.weapon.capacity
+

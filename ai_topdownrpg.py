@@ -138,8 +138,8 @@ pygame.display.set_caption('Nugget')
 TILE_SIZE = 64
 menu_font = pygame.font.Font(None, 36)
 
-#pygame.mixer.music.load('7000RPM.mp3')
-#pygame.mixer.music.play()
+pygame.mixer.music.load('7000RPM.mp3')
+pygame.mixer.music.play()
 
 bullet_image = load_image('bullet.png', (16,16))
 weapon_image = load_image('weapon.png', (48,24))
@@ -223,10 +223,12 @@ while running:
                 #enemy.death_sound.play()
                 enemies.remove(enemy)
                 player.kills += 1
-                enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
-                enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
-                enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
-                enemies.append(enemy)
+
+                if rand(1,2) > 1:
+                    enemy_x = rand(0, WINDOW_WIDTH - TILE_SIZE)
+                    enemy_y = rand(0, WINDOW_HEIGHT - TILE_SIZE)
+                    enemy = cls_enemy(enemy_image, enemy_x, enemy_y)
+                    enemies.append(enemy)
 
     for bullet in player.weapon.bullets:
         bullet.rect.x += bullet.speed * bullet.direction[0]

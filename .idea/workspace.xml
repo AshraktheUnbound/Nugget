@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
-      <change afterPath="$PROJECT_DIR$/enemies.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_topdownrpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_topdownrpg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_delete.py" beforeDir="false" afterPath="$PROJECT_DIR$/util_image_delete.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jars.py" beforeDir="false" afterPath="$PROJECT_DIR$/jars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pygame menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pygame tutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_dots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/side scroller.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_side_scroller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text_to_speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/example_text_to_speech.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682294438143</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Some Cleanup">
+      <created>1682308469287</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682308469287</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

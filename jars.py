@@ -2,7 +2,7 @@ import glob, os, pygame, random
 PATH = r"C:\Users\Bob Boberson\downloads\nameless\basic\Old Hall\\"
 
 def get_results():
-    pattern = path + "*.jpg"
+    pattern = PATH + "*.jpg"
     return glob.glob(pattern)
 
 
@@ -13,7 +13,7 @@ def cleanse():
     count = 1
     for file_name in result:
         old_name = file_name
-        new_name = path + str(count) + ".jpg"
+        new_name = PATH + str(count) + ".jpg"
         os.rename(old_name, new_name)
         count = count + 1
     print('File Cleansing is complete'.format())
@@ -118,5 +118,11 @@ class cls_pygame_screen(caption, width, height):
         self.font = pygame.font.Font(None, 36)
         self.clock = pygame.time.Clock()
 '''
+
+count = 55
+total = 0
+for x in range(count,0,-1):
+    total+=count
+print(total)
 
 

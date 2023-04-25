@@ -50,10 +50,11 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
         flower_y = rand(0, WINDOW_HEIGHT - 64)
         flower = cls_flower(flower_x, flower_y, images.flower_image)
         flowers.append(flower)
-    for x in range(250):
+    for x in range(500):
         grass_x = rand(0, WINDOW_WIDTH - 64)
         grass_y = rand(0, WINDOW_HEIGHT - 64)
-        grass = cls_flower(grass_x, grass_y, images.grass_image)
+        choice = rand(0,3)
+        grass = cls_flower(grass_x, grass_y, images.grass_images[choice])
         flowers.append(grass)
 
     return flowers
@@ -65,10 +66,16 @@ class load_images():
         self.player_image = load_image('char.jpg', (64, 64))
         self.player_image = pygame.transform.flip(self.player_image, True, False)
         self.enemy_image = load_image('enemy.png', (48, 48))
-        self.flower_image = load_image('flower.jpg', (40, 40))
+        self.flower_image = load_image('flower.png', (22, 38))
         self.grass_image = load_image('grass.png', (16, 16))
         self.big_enemy_image = load_image('enemy_2.png', (100, 100))
-        self.ammo_image = load_image('ammo.png', (64, 32))
+        #self.ammo_image = load_image('ammo.png', (64, 32))
+
+        self.grass_images = []
+        self.grass_images.append(load_image('grass.png', (16, 16)))
+        self.grass_images.append(load_image('grass_2.png', (16, 16)))
+        self.grass_images.append(load_image('grass_3.png', (16, 16)))
+        self.grass_images.append(load_image('grass_4.png', (16, 16)))
 
 class cls_flower:
     def __init__(self, x, y, image):

@@ -22,8 +22,8 @@ class cls_weapon:
 
         self.bullets = []
         self.fire_sound = pygame.mixer.Sound("fire_sound.wav")
-        self.reload_sound = pygame.mixer.Sound("reload.mp3")
-        self.reload_sound.set_volume(1.5)
+        #self.reload_sound = pygame.mixer.Sound("reload.mp3")
+        #self.reload_sound.set_volume(1.5)
 
         self.capacity = capacity
         self.ammo_count = capacity
@@ -76,4 +76,4 @@ class cls_weapon:
             self.ammo_total = 0
 
         self.time_reloaded = time.time() * 1000
-        self.reload_sound.play()
+        #self.reload_sound.play()

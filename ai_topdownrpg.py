@@ -84,7 +84,7 @@ while running:
                     enemies.append(enemy)
 
     # DRAW THE FRAME AFTER ALL LOGIC
-    game_window.fill((0, 0, 0))
+    game_window.fill((0, 15, 0))
 
     for flower in flowers:
         game_window.blit(flower.image, flower.rect)

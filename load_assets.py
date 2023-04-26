@@ -33,10 +33,10 @@ def generate_enemy(class_used, image,WINDOW_WIDTH, WINDOW_HEIGHT):
 def load_enemies(images,WINDOW_WIDTH, WINDOW_HEIGHT):
     enemies = []
 
-    for x in range(8):
+    for x in range(1):
         enemies.append(generate_enemy(cls_enemy, images.enemy_image,WINDOW_WIDTH, WINDOW_HEIGHT))
 
-    for x in range(3):
+    for x in range(1):
         enemy = generate_enemy(cls_super_enemy, images.big_enemy_image,WINDOW_WIDTH, WINDOW_HEIGHT)
         enemy.child = images.enemy_image
         enemies.append(enemy)
@@ -56,7 +56,18 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
         choice = rand(0,3)
         grass = cls_flower(grass_x, grass_y, images.grass_images[choice])
         flowers.append(grass)
-
+    for x in range(1):
+        puddle_x = rand(0, WINDOW_WIDTH - 512)
+        puddle_y = rand(0, WINDOW_HEIGHT - 512)
+        puddle = cls_flower(puddle_x, puddle_y, images.puddle_image)
+        flowers.append(puddle)
+        '''
+    for x in range(1):
+        cave_x = rand(0, WINDOW_WIDTH - 512)
+        cave_y = rand(0, WINDOW_HEIGHT - 512)
+        cave = cls_flower(cave_x, cave_y, images.cave_image)
+        flowers.append(cave)
+'''
     return flowers
 
 class load_images():
@@ -77,6 +88,9 @@ class load_images():
         self.grass_images.append(load_image('resources/images/grass_2.png', (16, 16)))
         self.grass_images.append(load_image('resources/images/grass_3.png', (16, 16)))
         self.grass_images.append(load_image('resources/images/grass_4.png', (16, 16)))
+
+        self.puddle_image = load_image('resources/images/tree.png', (256, 382))
+        self.cave_image = load_image('resources/images/cave.png', (512, 512))
 
 class cls_flower:
     def __init__(self, x, y, image):

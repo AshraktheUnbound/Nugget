@@ -46,8 +46,8 @@ class cls_player:
         if self.is_jumping:
             self.rect.y += self.vel_y
             self.vel_y += 1
-            if self.rect.bottom >= WINDOW_HEIGHT:
-                self.rect.bottom = WINDOW_HEIGHT
+            if self.rect.bottom >= 900:
+                self.rect.bottom = 900
                 self.is_jumping = False
 
         # check for collisions

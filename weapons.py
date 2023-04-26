@@ -31,8 +31,10 @@ class cls_weapon:
         self.fire_rate = 250
         self.time_last_fired = 0
         self.reload_timer = 2000
-        self.mode = 'Single_Shot'
+        self.mode = 'Burst_Fire'
         self.bullet_image = bullet_image
+        self.burst_count = 3
+        self.burst_shooting = False
 
 
     def update(self, player_rect):
@@ -43,17 +45,18 @@ class cls_weapon:
         surface.blit(self.image, self.rect)
 
     def shoot(self, direction):
-        modes = {1:'Single_Shot', 2:'Buck_Shot'}
+        modes = {1:'Single_Shot', 2:'Buck_Shot', 3:'Burst_Fire'}
 
         current_time = time.time() * 1000  # Get the current time in milliseconds
         time_since_last_shot = current_time - self.time_last_fired
-        if time_since_last_shot >= self.fire_rate:  # Check if enough time has elapsed since the last shot
+        if (time_since_last_shot >= self.fire_rate) or ((time_since_last_shot >= self.fire_rate/2) and self.burst_shooting == True):  # Check if enough time has elapsed since the last shot
             if self.ammo_count == 0:
                 self.reload()
             else:
                 if self.mode == modes[1]:
                     bullet = cls_bullet(self.rect.centerx, self.rect.top, direction, self.bullet_image)
                     self.bullets.append(bullet)
+                    self.fire_sound.play()
                 elif self.mode == modes[2]:
                     num_bullets = 5  # Change the number of bullets as per your requirement
                     angle = 10  # Change the angle as per your requirement
@@ -63,7 +66,17 @@ class cls_weapon:
                         bullet_direction = tuple(bullet_direction)
                         bullet = cls_bullet(self.rect.centerx, self.rect.top, bullet_direction, self.bullet_image)
                         self.bullets.append(bullet)
-                self.fire_sound.play()
+                        self.fire_sound.play()
+                elif self.mode == modes[3]:
+                    if self.burst_count > 0:
+                        self.burst_count -= 1
+                        bullet = cls_bullet(self.rect.centerx, self.rect.top, direction, self.bullet_image)
+                        self.bullets.append(bullet)
+                        self.fire_sound.play()
+                    else:
+                        self.burst_count = 3
+                        self.burst_shooting = False
+
                 self.ammo_count -= 1
                 self.time_last_fired = current_time
 

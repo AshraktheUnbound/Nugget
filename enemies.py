@@ -7,7 +7,7 @@ class cls_enemy:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.death_sound = pygame.mixer.Sound("death_sound.mp3")
+        self.death_sound = pygame.mixer.Sound("resources/death_sound.mp3")
 
         self.target_x = 0
         self.target_y = 0

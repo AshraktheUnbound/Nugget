@@ -65,11 +65,6 @@ while running:
             enemies.remove(enemy)
             player.kills += 1
 
-            enemy_x = rand(0, WINDOW_WIDTH - 64)
-            enemy_y = rand(0, WINDOW_HEIGHT - 64)
-            enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
-            enemies.append(enemy)
-
     for bullet in player.weapon.bullets:
         for enemy in enemies:
             if bullet.rect.colliderect(enemy):
@@ -77,14 +72,8 @@ while running:
                 enemies.remove(enemy)
                 player.kills += 1
 
-                if rand(1,2) > 1:
-                    enemy_x = rand(0, WINDOW_WIDTH - 64)
-                    enemy_y = rand(0, WINDOW_HEIGHT - 64)
-                    enemy = cls_enemy(images.enemy_image, enemy_x, enemy_y)
-                    enemies.append(enemy)
-
     # DRAW THE FRAME AFTER ALL LOGIC
-    game_window.fill((0, 15, 0))
+    game_window.fill((0, 55, 0))
 
     for flower in flowers:
         game_window.blit(flower.image, flower.rect)

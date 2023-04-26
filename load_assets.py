@@ -5,7 +5,7 @@ from weapons import cls_weapon
 from enemies import cls_enemy, cls_super_enemy
 
 def load_music():
-    pygame.mixer.music.load('7000RPM.mp3')
+    pygame.mixer.music.load('resources/7000RPM.mp3')
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play()
 
@@ -61,21 +61,22 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
 
 class load_images():
     def __init__(self):
-        self.bullet_image = load_image('bullet.png', (16, 16))
-        self.weapon_image = load_image('weapon.png', (48, 24))
-        self.player_image = load_image('char.jpg', (64, 64))
+        self.bullet_image = load_image('resources/images/bullet.png', (16, 16))
+        self.weapon_image = load_image('resources/images/gungun.png', (90, 24))
+        self.player_image = load_image('resources/images/char_2.png', (96, 96))
         self.player_image = pygame.transform.flip(self.player_image, True, False)
-        self.enemy_image = load_image('enemy.png', (48, 48))
-        self.flower_image = load_image('flower.png', (22, 38))
-        self.grass_image = load_image('grass.png', (16, 16))
-        self.big_enemy_image = load_image('enemy_2.png', (100, 100))
+        self.enemy_image = load_image('resources/images/enemy.png', (48, 48))
+        self.flower_image = load_image('resources/images/glow_flower.png', (64,64))
+        self.grass_image = load_image('resources/images/grass.png', (16, 16))
+        self.big_enemy_image = load_image('resources/images/enemy_2.png', (100, 100))
         #self.ammo_image = load_image('ammo.png', (64, 32))
 
+        #self.grass_images = load_split_image('resources')
         self.grass_images = []
-        self.grass_images.append(load_image('grass.png', (16, 16)))
-        self.grass_images.append(load_image('grass_2.png', (16, 16)))
-        self.grass_images.append(load_image('grass_3.png', (16, 16)))
-        self.grass_images.append(load_image('grass_4.png', (16, 16)))
+        self.grass_images.append(load_image('resources/images/grass.png', (16, 16)))
+        self.grass_images.append(load_image('resources/images/grass_2.png', (16, 16)))
+        self.grass_images.append(load_image('resources/images/grass_3.png', (16, 16)))
+        self.grass_images.append(load_image('resources/images/grass_4.png', (16, 16)))
 
 class cls_flower:
     def __init__(self, x, y, image):
@@ -84,7 +85,32 @@ class cls_flower:
         self.rect.x = x
         self.rect.y = y
 
-        '''
+
+
+class cls_ammo:
+    def __init__(self, x, y, image):
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def gitty_get(self, player):
+        player.weapon.ammo_total += player.weapon.capacity
+
+
+def load_split_image(filename):
+    image = pygame.image.load(filename)
+
+    # Split the image into four 32x32 images
+    images = []
+    for i in range(4):
+        rect = pygame.Rect(i * 32, 0, 32, 32)
+        sub_image = image.subsurface(rect)
+        images.append(sub_image)
+
+    return images
+
+'''
         image = pygame.image.load('pyramid.png')
         image = pygame.transform.scale(image, (WINDOW_WIDTH, WINDOW_HEIGHT))
         alpha = 0
@@ -99,14 +125,4 @@ class cls_flower:
             clock.tick(60)
             if alpha == 255:
                 running = False'''
-
-class cls_ammo:
-    def __init__(self, x, y, image):
-        self.image = image
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-
-    def gitty_get(self, player):
-        player.weapon.ammo_total += player.weapon.capacity
 

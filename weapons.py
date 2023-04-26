@@ -21,7 +21,7 @@ class cls_weapon:
         self.rect.y = y
 
         self.bullets = []
-        self.fire_sound = pygame.mixer.Sound("fire_sound.wav")
+        self.fire_sound = pygame.mixer.Sound("resources/fire_sound.wav")
         #self.reload_sound = pygame.mixer.Sound("reload.mp3")
         #self.reload_sound.set_volume(1.5)
 
@@ -37,7 +37,7 @@ class cls_weapon:
 
     def update(self, player_rect):
         self.rect.centerx = player_rect.centerx
-        self.rect.bottom = player_rect.top+48
+        self.rect.bottom = player_rect.top+80
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)

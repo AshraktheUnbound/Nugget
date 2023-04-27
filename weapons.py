@@ -31,7 +31,7 @@ class cls_weapon:
         self.fire_rate = 250
         self.time_last_fired = 0
         self.reload_timer = 2000
-        self.mode = 'Burst_Fire'
+        self.mode = 'Single_Shot'
         self.bullet_image = bullet_image
         self.burst_count = 3
         self.burst_shooting = False

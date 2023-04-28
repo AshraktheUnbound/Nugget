@@ -70,85 +70,21 @@ class cls_game:
 
     def main_loop(self):
         self.map = cls_map(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
-
-        menu_font = pygame.font.Font(None, 72)
-
-        mouse_down = False
+        self.mouse_down = False
         running = True
         while running:
             # INPUTS - HANDLE EVENTS
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pressed()[0]:  # left mouse button
-                        mouse_down = True
-                    elif pygame.mouse.get_pressed()[2]:  # right mouse button
-                        self.map.player.weapon.reload()
-                elif event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 1:  # left mouse button
-                        mouse_down = False
-            if mouse_down:
-                mouse_pos = pygame.mouse.get_pos()
-                direction = (mouse_pos[0] - self.map.player.rect.centerx, mouse_pos[1] - self.map.player.rect.centery)
-                self.map.player.weapon.shoot(direction)
-
-            # Movement Logic
-            self.map.player.update(self.locks, self.map.enemies)
-            for enemy in self.map.enemies:
-                enemy.update(self.map.player, self.map.enemies)
-            for bullet in self.map.player.weapon.bullets:
-                bullet.rect.x += bullet.speed * bullet.direction[0]
-                bullet.rect.y += bullet.speed * bullet.direction[1]
-
-            # Collision Logic
-            for enemy in self.map.enemies:
-                if self.map.player.rect.colliderect(enemy):
-                    print('Collision!')
-                    self.map.player.hit_points += -1
-
-                    enemy.death_sound.play()
-                    self.map.enemies.remove(enemy)
-                    self.map.player.kills += 1
-
-            for bullet in self.map.player.weapon.bullets:
-                for enemy in self.map.enemies:
-                    if bullet.rect.colliderect(enemy):
-                        self.map.player.weapon.bullets.remove(bullet)
-                        self.map.enemies.remove(enemy)
-                        self.map.player.kills += 1
-            for building in self.map.buildings:
-                if self.map.player.rect.colliderect(building.door_rect):
-                    #print(f'Building rect {building.rect}')
-                    #print(f'Door Rect {building.door_rect}')
-                    running = False
-
-
+            # MOVEMENT AND COLLISION LOGIC
             # DRAW THE FRAME AFTER ALL LOGIC
-            self.SCREEN.fill((0, 55, 0))
-
-            for flower in self.map.flowers:
-                self.SCREEN.blit(flower.image, flower.rect)
-            for building in self.map.buildings:
-                self.SCREEN.blit(building.image, building.rect)
-                #door = pygame.Surface((building.door_rect[2], building.door_rect[3]))
-                #door.fill(white)
-                #self.SCREEN.blit(door, building.door_rect)
-            for enemy in self.map.enemies:
-                self.SCREEN.blit(enemy.image, enemy.rect)
-            self.map.player.draw(self.SCREEN)
-            for bullet in self.map.player.weapon.bullets:
-                if bullet.rect.left > self.SCREEN_WIDTH or bullet.rect.right < 0 or bullet.rect.top > self.SCREEN_HEIGHT or bullet.rect.bottom < 0:
-                    self.map.player.weapon.bullets.remove(bullet)
-                else:
-                    self.SCREEN.blit(bullet.image, bullet.rect)
-
-            item_text = menu_font.render(
-                f'KILLS: {self.map.player.kills} - HITPOITS: {self.map.player.hit_points} - AMMO:({self.map.player.weapon.ammo_count}/{self.map.player.weapon.ammo_total})',
-                True, (255, 255, 255))
-            item_rect = item_text.get_rect()
-            self.SCREEN.blit(item_text, item_rect)
-            pygame.display.update()
+            # DISPLAY SCREEN
+            if self.locks.main_display == True:
+                self.main_display_event_handler()
+                self.main_display_movements()
+                self.main_display_collisions()
+                self.render_main_display()
+            else:
+                if self.locks.inventory_display == True:
+                    self.render_inventory_display()
 
             # Frame Rate
             self.clock.tick(60)
@@ -158,10 +94,82 @@ class cls_game:
                 running = False
 
     def render_main_display(self):
-        pass
+        menu_font = pygame.font.Font(None, 72)
+        self.SCREEN.fill((0, 55, 0))
 
-    def render_inventory(self):
-        pass
+        for flower in self.map.flowers:
+            self.SCREEN.blit(flower.image, flower.rect)
+        for building in self.map.buildings:
+            self.SCREEN.blit(building.image, building.rect)
+            # door = pygame.Surface((building.door_rect[2], building.door_rect[3]))
+            # door.fill(white)
+            # self.SCREEN.blit(door, building.door_rect)
+        for enemy in self.map.enemies:
+            self.SCREEN.blit(enemy.image, enemy.rect)
+        self.map.player.draw(self.SCREEN)
+        for bullet in self.map.player.weapon.bullets:
+            if bullet.rect.left > self.SCREEN_WIDTH or bullet.rect.right < 0 or bullet.rect.top > self.SCREEN_HEIGHT or bullet.rect.bottom < 0:
+                self.map.player.weapon.bullets.remove(bullet)
+            else:
+                self.SCREEN.blit(bullet.image, bullet.rect)
+
+        item_text = menu_font.render(
+            f'KILLS: {self.map.player.kills} - HITPOITS: {self.map.player.hit_points} - AMMO:({self.map.player.weapon.ammo_count}/{self.map.player.weapon.ammo_total})',
+            True, (255, 255, 255))
+        item_rect = item_text.get_rect()
+        self.SCREEN.blit(item_text, item_rect)
+        pygame.display.update()
+
+    def render_inventory_display(self):
+        self.SCREEN.fill((200, 200, 200))
+        pygame.display.update()
+
+    def main_display_movements(self):
+        self.map.player.update(self.locks, self.map.enemies)
+        for enemy in self.map.enemies:
+            enemy.update(self.map.player, self.map.enemies)
+        for bullet in self.map.player.weapon.bullets:
+            bullet.rect.x += bullet.speed * bullet.direction[0]
+            bullet.rect.y += bullet.speed * bullet.direction[1]
+
+    def main_display_collisions(self):
+        for enemy in self.map.enemies:
+            if self.map.player.rect.colliderect(enemy):
+                print('Collision!')
+                self.map.player.hit_points += -1
+
+                enemy.death_sound.play()
+                self.map.enemies.remove(enemy)
+                self.map.player.kills += 1
+
+        for bullet in self.map.player.weapon.bullets:
+            for enemy in self.map.enemies:
+                if bullet.rect.colliderect(enemy):
+                    self.map.player.weapon.bullets.remove(bullet)
+                    self.map.enemies.remove(enemy)
+                    self.map.player.kills += 1
+        for building in self.map.buildings:
+            if self.map.player.rect.colliderect(building.door_rect):
+                # print(f'Building rect {building.rect}')
+                # print(f'Door Rect {building.door_rect}')
+                running = False
+
+    def main_display_event_handler(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed()[0]:  # left mouse button
+                    self.mouse_down = True
+                elif pygame.mouse.get_pressed()[2]:  # right mouse button
+                    self.map.player.weapon.reload()
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:  # left mouse button
+                    self.mouse_down = False
+        if self.mouse_down:
+            mouse_pos = pygame.mouse.get_pos()
+            direction = (mouse_pos[0] - self.map.player.rect.centerx, mouse_pos[1] - self.map.player.rect.centery)
+            self.map.player.weapon.shoot(direction)
 
 
 class cls_map:
@@ -174,8 +182,5 @@ class cls_map:
         self.flowers = load_flowers(self.images, WIDTH, HEIGHT)
         self.buildings = load_buildings(self.images, WIDTH, HEIGHT)
 
-
-
-
-
+##########################################
 game = cls_game()

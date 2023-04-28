@@ -134,20 +134,3 @@ def load_split_image(filename):
         images.append(sub_image)
 
     return images
-
-'''
-        image = pygame.image.load('pyramid.png')
-        image = pygame.transform.scale(image, (WINDOW_WIDTH, WINDOW_HEIGHT))
-        alpha = 0
-        running = True
-        while running:
-            alpha += .5
-            if alpha > 255:
-                alpha = 255
-            image.set_alpha(alpha)
-            game_window.blit(image, (0, 0))
-            pygame.display.update()
-            clock.tick(60)
-            if alpha == 255:
-                running = False'''
-

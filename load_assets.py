@@ -134,3 +134,13 @@ def load_split_image(filename):
         images.append(sub_image)
 
     return images
+
+class cls_map:
+    def __init__(self, w, h):
+        WIDTH = w
+        HEIGHT = h
+        self.images = load_images()
+        self.player = load_player(WIDTH // 2, HEIGHT // 2, self.images)
+        self.enemies = load_enemies(self.images, WIDTH, HEIGHT)
+        self.flowers = load_flowers(self.images, WIDTH, HEIGHT)
+        self.buildings = load_buildings(self.images, WIDTH, HEIGHT)

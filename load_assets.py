@@ -61,14 +61,20 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
         puddle_y = rand(0, WINDOW_HEIGHT - 512)
         puddle = cls_flower(puddle_x, puddle_y, images.puddle_image)
         flowers.append(puddle)
-        
+
+
+    return flowers
+
+def load_buildings(images, WINDOW_WIDTH, WINDOW_HEIGHT):
+    buildings = []
+
     for x in range(1):
         cave_x = rand(0, WINDOW_WIDTH - 512)
         cave_y = rand(0, WINDOW_HEIGHT - 512)
-        cave = cls_flower(cave_x, cave_y, images.cave_image)
-        flowers.append(cave)
+        cave = cls_building(cave_x, cave_y, images.cave_image)
+        buildings.append(cave)
 
-    return flowers
+    return buildings
 
 class load_images():
     def __init__(self):
@@ -98,6 +104,11 @@ class cls_flower:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class cls_building(cls_flower):
+    def __init__(self, x, y, image):
+        super().__init__(x, y, image)
+        self.door_rect = pygame.Rect(x,y,40,40)
 
 
 

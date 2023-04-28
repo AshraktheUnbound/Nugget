@@ -1,6 +1,7 @@
 import pygame
 from load_assets import load_music, load_images, load_player, load_enemies
-from load_assets import load_flowers
+from load_assets import load_flowers, load_buildings
+from colors import cls_color
 
 white = (255, 255, 255)
 
@@ -113,12 +114,21 @@ class cls_game:
                         self.map.player.weapon.bullets.remove(bullet)
                         self.map.enemies.remove(enemy)
                         self.map.player.kills += 1
+            for building in self.map.buildings:
+                if self.map.player.rect.colliderect(building.door_rect):
+                    running = False
+
 
             # DRAW THE FRAME AFTER ALL LOGIC
             self.SCREEN.fill((0, 55, 0))
 
             for flower in self.map.flowers:
                 self.SCREEN.blit(flower.image, flower.rect)
+            for building in self.map.buildings:
+                self.SCREEN.blit(building.image, building.rect)
+                door = pygame.Surface((32, 32))
+                door.fill(white)
+                self.SCREEN.blit(door, building.door_rect)
             for enemy in self.map.enemies:
                 self.SCREEN.blit(enemy.image, enemy.rect)
             self.map.player.draw(self.SCREEN)
@@ -151,6 +161,7 @@ class cls_map:
         self.player = load_player(WIDTH // 2, HEIGHT // 2, self.images)
         self.enemies = load_enemies(self.images, WIDTH, HEIGHT)
         self.flowers = load_flowers(self.images, WIDTH, HEIGHT)
+        self.buildings = load_buildings(self.images, WIDTH, HEIGHT)
 
 
 

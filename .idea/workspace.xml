@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64523ccd-efdb-44ed-992f-cc863966b1e3" name="Changes" comment="Some Cleanup">
-      <change afterPath="$PROJECT_DIR$/buildings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai_topdownrpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_topdownrpg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildings.py" beforeDir="false" afterPath="$PROJECT_DIR$/buildings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/load_assets.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_assets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -363,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682637604693</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Some Cleanup">
+      <created>1682645528512</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1682645528512</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

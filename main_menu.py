@@ -1,6 +1,7 @@
 import pygame
 from load_assets import load_music, load_images, load_player, load_enemies
 from load_assets import load_flowers, load_buildings
+from locks import cls_locks
 from colors import cls_color
 
 white = (255, 255, 255)
@@ -16,6 +17,8 @@ class cls_game:
                                               pygame.FULLSCREEN)
         pygame.display.set_caption('Nugget')
         self.clock = pygame.time.Clock()
+
+        self.locks = cls_locks()
 
         self.main_menu()
 
@@ -91,7 +94,7 @@ class cls_game:
                 self.map.player.weapon.shoot(direction)
 
             # Movement Logic
-            self.map.player.update(self.map.enemies)
+            self.map.player.update(self.locks, self.map.enemies)
             for enemy in self.map.enemies:
                 enemy.update(self.map.player, self.map.enemies)
             for bullet in self.map.player.weapon.bullets:
@@ -154,6 +157,12 @@ class cls_game:
             if len(self.map.enemies) == 0 or self.map.player.hit_points < 1:
                 running = False
 
+    def render_main_display(self):
+        pass
+
+    def render_inventory(self):
+        pass
+
 
 class cls_map:
     def __init__(self, w, h):
@@ -164,6 +173,7 @@ class cls_map:
         self.enemies = load_enemies(self.images, WIDTH, HEIGHT)
         self.flowers = load_flowers(self.images, WIDTH, HEIGHT)
         self.buildings = load_buildings(self.images, WIDTH, HEIGHT)
+
 
 
 

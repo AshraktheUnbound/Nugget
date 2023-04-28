@@ -48,18 +48,18 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
     for x in range(10):
         flower_x = rand(0, WINDOW_WIDTH - 64)
         flower_y = rand(0, WINDOW_HEIGHT - 64)
-        flower = cls_flower(flower_x, flower_y, images.flower_image)
+        flower = cls_map_object(flower_x, flower_y, images.flower_image)
         flowers.append(flower)
     for x in range(500):
         grass_x = rand(0, WINDOW_WIDTH - 64)
         grass_y = rand(0, WINDOW_HEIGHT - 64)
         choice = rand(0,3)
-        grass = cls_flower(grass_x, grass_y, images.grass_images[choice])
+        grass = cls_map_object(grass_x, grass_y, images.grass_images[choice])
         flowers.append(grass)
     for x in range(1):
         puddle_x = rand(0, WINDOW_WIDTH - 512)
         puddle_y = rand(0, WINDOW_HEIGHT - 512)
-        puddle = cls_flower(puddle_x, puddle_y, images.puddle_image)
+        puddle = cls_map_object(puddle_x, puddle_y, images.puddle_image)
         flowers.append(puddle)
 
 
@@ -98,14 +98,14 @@ class load_images():
         self.puddle_image = load_image('resources/images/tree.png', (256, 382))
         self.cave_image = load_image('resources/images/cave.png', (512, 512))
 
-class cls_flower:
+class cls_map_object:
     def __init__(self, x, y, image):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
-class cls_building(cls_flower):
+class cls_building(cls_map_object):
     def __init__(self, x, y, image):
         super().__init__(x, y, image)
         self.door_rect = pygame.Rect(x+220,y+280,40,40)

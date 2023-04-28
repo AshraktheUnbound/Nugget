@@ -1,6 +1,7 @@
 import pygame
 
 from weapons import cls_bullet, cls_weapon
+from locks import cls_locks
 
 class cls_player:
     def __init__(self, x, y, image):
@@ -17,7 +18,7 @@ class cls_player:
         self.kills = 0
         self.hit_points = 3
 
-    def update(self, enemies):
+    def update(self, locks, enemies):
         # handle player movement
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and not self.is_jumping:
@@ -41,6 +42,10 @@ class cls_player:
             self.rect.y -= 5
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.rect.y += 5
+
+        if keys[pygame.K_i] or keys[pygame.K_c]:
+            locks.map_display = not locks.map_display
+            locks.inventory = not locks.inventory
 
         # handle player jumping
         if self.is_jumping:

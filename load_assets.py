@@ -61,13 +61,13 @@ def load_flowers(images,WINDOW_WIDTH, WINDOW_HEIGHT):
         puddle_y = rand(0, WINDOW_HEIGHT - 512)
         puddle = cls_flower(puddle_x, puddle_y, images.puddle_image)
         flowers.append(puddle)
-        '''
+        
     for x in range(1):
         cave_x = rand(0, WINDOW_WIDTH - 512)
         cave_y = rand(0, WINDOW_HEIGHT - 512)
         cave = cls_flower(cave_x, cave_y, images.cave_image)
         flowers.append(cave)
-'''
+
     return flowers
 
 class load_images():

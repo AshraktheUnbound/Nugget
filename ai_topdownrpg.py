@@ -27,7 +27,6 @@ enemies = load_enemies(images, WINDOW_WIDTH, WINDOW_HEIGHT)
 flowers = load_flowers(images, WINDOW_WIDTH, WINDOW_HEIGHT)
 
 mouse_down = False
-
 running = True
 while running:
     # INPUTS - HANDLE EVENTS

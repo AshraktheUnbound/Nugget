@@ -71,8 +71,8 @@ class cls_game:
     def main_loop(self):
         self.map = cls_map(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         self.mouse_down = False
-        running = True
-        while running:
+        self.loop_running = True
+        while self.loop_running:
             # INPUTS - HANDLE EVENTS
             # MOVEMENT AND COLLISION LOGIC
             # DRAW THE FRAME AFTER ALL LOGIC
@@ -84,6 +84,7 @@ class cls_game:
                 self.render_main_display()
             else:
                 if self.locks.inventory_display == True:
+                    self.inventory_event_handler()
                     self.render_inventory_display()
 
             # Frame Rate
@@ -157,7 +158,7 @@ class cls_game:
     def main_display_event_handler(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                self.loop_running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]:  # left mouse button
                     self.mouse_down = True
@@ -170,6 +171,23 @@ class cls_game:
             mouse_pos = pygame.mouse.get_pos()
             direction = (mouse_pos[0] - self.map.player.rect.centerx, mouse_pos[1] - self.map.player.rect.centery)
             self.map.player.weapon.shoot(direction)
+
+    def inventory_event_handler(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.loop_running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_i or event.key == pygame.K_c:
+                    if self.locks.key_pressed:
+                        self.locks.inventory_toggle()
+                        self.locks.key_pressed = True
+                else:
+                    self.locks.key_pressed = False
+            elif event.type == pygame.KEYUP:
+                self.locks.key_pressed = False
+
+
 
 
 class cls_map:

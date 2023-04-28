@@ -43,6 +43,9 @@ class cls_player:
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.rect.y += 5
 
+        if (keys[pygame.K_c] or keys[pygame.K_i]) and locks.key_pressed == False:
+            locks.inventory_toggle()
+
 
         # handle player jumping
         if self.is_jumping:

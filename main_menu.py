@@ -116,6 +116,8 @@ class cls_game:
                         self.map.player.kills += 1
             for building in self.map.buildings:
                 if self.map.player.rect.colliderect(building.door_rect):
+                    #print(f'Building rect {building.rect}')
+                    #print(f'Door Rect {building.door_rect}')
                     running = False
 
 
@@ -126,9 +128,9 @@ class cls_game:
                 self.SCREEN.blit(flower.image, flower.rect)
             for building in self.map.buildings:
                 self.SCREEN.blit(building.image, building.rect)
-                door = pygame.Surface((32, 32))
-                door.fill(white)
-                self.SCREEN.blit(door, building.door_rect)
+                #door = pygame.Surface((building.door_rect[2], building.door_rect[3]))
+                #door.fill(white)
+                #self.SCREEN.blit(door, building.door_rect)
             for enemy in self.map.enemies:
                 self.SCREEN.blit(enemy.image, enemy.rect)
             self.map.player.draw(self.SCREEN)

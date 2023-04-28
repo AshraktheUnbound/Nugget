@@ -108,7 +108,7 @@ class cls_flower:
 class cls_building(cls_flower):
     def __init__(self, x, y, image):
         super().__init__(x, y, image)
-        self.door_rect = pygame.Rect(x,y,40,40)
+        self.door_rect = pygame.Rect(x+220,y+280,40,40)
 
 
 

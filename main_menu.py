@@ -116,7 +116,7 @@ class cls_game:
         pygame.display.update()
 
     def main_display_movements(self):
-        self.map.player.update(self.locks, self.map.enemies)
+        self.map.player.update(self.screen_mode, self.map.enemies)
         for enemy in self.map.enemies:
             enemy.update(self.map.player, self.map.enemies)
         for bullet in self.map.player.weapon.bullets:

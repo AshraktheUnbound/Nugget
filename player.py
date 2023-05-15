@@ -18,7 +18,7 @@ class cls_player:
         self.kills = 0
         self.hit_points = 3
 
-    def update(self, locks, enemies):
+    def update(self, screen_mode, enemies):
         # handle player movement
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and not self.is_jumping:
@@ -43,9 +43,9 @@ class cls_player:
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.rect.y += 5
 
-        if (keys[pygame.K_c] or keys[pygame.K_i]) and locks.key_pressed == False:
-            locks.inventory_toggle()
-            print("hi")
+        if (keys[pygame.K_c] or keys[pygame.K_i]):
+            screen_mode = 2
+
 
 
         # handle player jumping
